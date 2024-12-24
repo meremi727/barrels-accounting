@@ -6,10 +6,6 @@ namespace Accounting.Domain;
 /// </summary>
 public abstract class StorageObject
 {
-    #region Public
-
-    #region Properties
-
     /// <summary>
     /// Возвращает уникальный идентификатор объекта хранилища.
     /// </summary>
@@ -18,19 +14,15 @@ public abstract class StorageObject
     /// <summary>
     /// Возвращает штрих-код.
     /// </summary>
-    public string Barcode { get; init; }
+    public string Barcode { get; init; } = null!;
 
     /// <summary>
     /// Возвращает наименование объекта хранилища.
     /// </summary>
-    public string Name { get; init; }
+    public string Name { get; init; } = null!;
 
     /// <summary>
     /// Возвращает идентификатор склада, на котором расположен данный объект хранилище.
     /// </summary>
     public Guid StorageId { get; init; }
-
-    #endregion
-
-    #endregion
 }

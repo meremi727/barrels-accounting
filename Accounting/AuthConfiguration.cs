@@ -1,40 +1,44 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Accounting;
 
 /// <summary>
-/// Применяет настройки авторизации через keycloak из конфигурационного файла.
+/// Применяет настройки аутентификации через keycloak из конфигурационного файла.
 /// </summary>
 public static class AuthConfiguration
 {
+    /// <summary>
+    /// Добавляет аутентификацию через Keycloak.
+    /// </summary>
+    /// <param name="builder">  </param>
+    /// <exception cref="KeyNotFoundException"> Неполный файл конфигурации. </exception>
     public static void AddKeycloak(this WebApplicationBuilder builder)
     {
-        builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-         .AddJwtBearer(options =>
-         {
-             options.Audience = "broker";
-             options.ClaimsIssuer = "http://localhost:8080/realms/BarrelsAccounting";
-             options.RequireHttpsMetadata = false;
-             options.TokenValidationParameters = new TokenValidationParameters
-             {
-                 ValidateIssuer = true,
-                 ValidateAudience = true,
-                 ValidateLifetime = true,
-                 ValidateIssuerSigningKey = true,
-                 ValidIssuer = "http://localhost:8080/realms/BarrelsAccounting",
-                 ValidAudience = "broker",
-                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("pRwQ9eZuY8u8QIsrEEK1hz9TtDQUAcGB"))
-             };
-         });
+        string getAuthItem(string name) 
+            => builder.Configuration[$"Authentication:{name}"] 
+                ?? throw new KeyNotFoundException($"Элемента Authentication:{name} нет в файле конфигурации.");
 
-         builder.Services.AddAuthorization(auth =>
+        SymmetricSecurityKey getSymKey(string val) 
+            => new(Encoding.UTF8.GetBytes(val));
+
+        builder.Services
+            .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
             {
-                auth.AddPolicy("Bearer", new AuthorizationPolicyBuilder()
-                    .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme‌​)
-                    .RequireAuthenticatedUser().Build());
+                options.RequireHttpsMetadata = false;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidateLifetime = true,
+
+                    ValidIssuer = getAuthItem("issuer"),
+                    ValidAudience = getAuthItem("audience"),
+                    IssuerSigningKey = getSymKey(getAuthItem("key"))
+                };
             });
     }
 }

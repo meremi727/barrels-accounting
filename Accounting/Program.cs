@@ -8,8 +8,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
-
-// builder.Services.AddAuthentication().AddJwtBearer();
 builder.AddKeycloak();
 
 var app = builder.Build();

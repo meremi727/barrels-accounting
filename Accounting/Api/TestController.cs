@@ -7,7 +7,7 @@ namespace Accounting.Api;
 
 [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 [ApiController]
-[Route("[controller]")]
+[Route("/Test")]
 public class TestController : Controller
 {
     [HttpGet]
@@ -15,6 +15,6 @@ public class TestController : Controller
     {
         // this.HttpContext.Request.Headers.TryGetValue("Authorization", out var val);
 
-        return Results.Ok(HttpContext.User);
+        return Results.Ok(123);
     }
 }

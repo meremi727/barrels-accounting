@@ -6,16 +6,8 @@ namespace Accounting.Domain;
 /// </summary>
 public class Aggregate : StorageObject
 {
-    #region Public
-
-    #region Properties
-	
     /// <summary>
 	/// Возвращает объем емкости.
 	/// </summary>
 	public double Volume { get; }
-	
-    #endregion
-
-    #endregion
 }

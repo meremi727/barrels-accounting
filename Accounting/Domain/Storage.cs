@@ -5,10 +5,6 @@ namespace Accounting.Domain;
 /// </summary>
 public abstract class Storage
 {
-    #region Public
-
-    #region Properties
-
     /// <summary>
     /// Возвращает уникальный идентификатор склада.
     /// </summary>
@@ -25,16 +21,7 @@ public abstract class Storage
     public string Name { get; init; } = null!;
 
     /// <summary>
-    /// Возвращает все МХ, принадлежащие данному складу.
+    /// Возвращает идентификатор МХ установленного по-умолчанию.
     /// </summary>
-    public IEnumerable<StoragePlace> StoragePlaces { get; init; } = null!;
-
-    /// <summary>
-    /// Возвращает МХ установленный по-умолчанию.
-    /// </summary>
-    public StoragePlace? DefaultStoragePlace { get; set; }
-
-    #endregion
-
-    #endregion
+    public Guid? StoragePlaceId { get; set; }
 }

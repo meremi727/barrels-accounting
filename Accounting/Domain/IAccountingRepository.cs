@@ -1,95 +1,115 @@
-// using System.Linq.Expressions;
+using System.Linq.Expressions;
 
-// namespace Accounting.Domain;
+namespace Accounting.Domain;
 
-// /// <summary>
-// /// Интерфейс репозитория сервиса учета ЛКМ.
-// /// </summary>
-// public interface IAccountingRepository
-// {
-// 	#region Overridable
-// 	/// <summary>
-// 	/// Добавляет бочку.
-// 	/// </summary>
-// 	/// <param name="barrel"> Бочка. </param>
-// 	void Add(Barrel barrel);
+/// <summary>
+/// Интерфейс репозитория сервиса учета ЛКМ.
+/// </summary>
+public interface IAccountingRepository
+{
+	#region Barrel
 
-// 	/// <summary>
-// 	/// Возвращает бочки по указанным идентификаторам.
-// 	/// </summary>
-// 	/// <param name="ids"> Идентификаторы для поиска. </param>
-// 	/// <returns> Коллекция не удаленных бочек. </returns>
-// 	IReadOnlyCollection<Barrel> FindBy(IReadOnlyCollection<string> ids);
+	/// <summary>
+	/// Добавляет новую бочку.
+	/// </summary>
+	/// <param name="barrel"> Бочка. </param>
+	void AddBarrel(Barrel barrel);
 
-// 	/// <summary>
-// 	/// Находит и возвращает бочки по предикату.
-// 	/// </summary>
-// 	/// <param name="predicate"> Предикат. </param>
-// 	/// <returns> Коллекция не удаленных бочек. </returns>
-// 	IEnumerable<Barrel> FindBy(Expression<Func<Barrel, bool>> predicate);
+	/// <summary>
+	/// Обновляет указанную бочку.
+	/// </summary>
+	/// <param name="barrel"> Бочка. </param>
+	void UpdateBarrel(Barrel barrel);
 
-// 	/// <summary>
-// 	/// Находит и возвращает МХ по идентификатору.
-// 	/// </summary>
-// 	/// <param name="id">Идентификатор МХ.</param>
-// 	/// <returns>МХ или <c>null</c>, если не найдено.</returns>
-// 	Storage? FindStorageBy(Guid id);
+	/// <summary>
+	/// Помечает указанную бочку удаленной.
+	/// </summary>
+	/// <param name="barrel"> Бочка. </param>
+	void RemoveBarrel(Barrel barrel);
 
-// 	/// <summary>
-// 	/// Находит и возвращает коллекцию МХ по идентификатору склада.
-// 	/// </summary>
-// 	/// <param name="warehouseId">Идентификатор склада.</param>
-// 	/// <returns>Коллекцию МХ или пустую коллекцию, если не найдены.</returns>
-// 	IReadOnlyCollection<Storage> FindStoragesBy(Guid warehouseId);
+	/// <summary>
+	/// Возвращает бочки по указанным идентификаторам, которые не были помечены удаленными.
+	/// </summary>
+	/// <param name="ids"> Коллекция идентификаторов. </param>
+	/// <returns> Коллекция всех найденных бочек по переданным идентификаторам. </returns>
+	IReadOnlyCollection<Barrel> GetBarrelsByIds(IEnumerable<string> ids);
 
-// 	/// <summary>
-// 	/// Находит и возвращает объект склада по идентификатору.
-// 	/// </summary>
-// 	/// <param name="id">Идентификатор.</param>
-// 	/// <returns>Объект склада или <c>null</c>, если объект склада не найден.</returns>
-// 	TWarehouseObject? FindWarehouseObjectById<TWarehouseObject>(Guid id) where TWarehouseObject : WarehouseObject;
+	/// <summary>
+	/// Возвращает все бочки, удовлетворяющие предикату, которые не были помечены на удаление.
+	/// </summary>
+	/// <param name="predicate"> Условие отбора. </param>
+	/// <returns> Коллекция всех найденных бочек по переданному условию. </returns>
+	IReadOnlyCollection<Barrel> GetBarrels(Expression<Func<Barrel, bool>> predicate);
 
-// 	/// <summary>
-// 	/// Возвращает склад приемки по идентификатору.
-// 	/// </summary>
-// 	/// <returns>Склад приемки или <c>null</c>, если не найден.</returns>
-// 	AcceptanceWarehouse? GetAcceptanceWarehouseById(Guid id);
+	#endregion
 
-// 	/// <summary>
-// 	/// Возвращает склады приемки.
-// 	/// </summary>
-// 	/// <returns>Склады приемки или пустую коллекцию, если не найдены.</returns>
-// 	IReadOnlyCollection<AcceptanceWarehouse> GetAcceptanceWarehouses();
+	#region StorageObject
 
-// 	/// <summary>
-// 	/// Возвращает склад производства по идентификатору.
-// 	/// </summary>
-// 	/// <returns>Склад производства или <c>null</c>, если не найден.</returns>
-// 	ProductionWarehouse? GetProductionWarehouseById(Guid id);
+	/// <summary>
+	/// Возвращает объект хранилище по его идентификатору.
+	/// </summary>
+	/// <typeparam name="TStorageObject"> Тип объекта хранилища. </typeparam>
+	/// <param name="storageObjectId"> Идентификатор. </param>
+	/// <returns> Объект, или <c>null</c>, если не найден. </returns>
+	TStorageObject? GetStorageObjectById<TStorageObject>(Guid storageObjectId)
+		where TStorageObject : StorageObject;
 
-// 	/// <summary>
-// 	/// Возвращает склады производства.
-// 	/// </summary>
-// 	/// <returns> Склады производства. </returns>
-// 	IReadOnlyCollection<ProductionStorage> GetProductionStorages();
+	#region StoragePlace
 
-// 	/// <summary>
-// 	/// Возвращает объекты склада.
-// 	/// </summary>
-// 	/// <returns> Объекты склада. </returns>
-// 	IReadOnlyCollection<StorageObject> GetStorageObjects();
+	/// <summary>
+	/// Возвращает МХ по его идентификатору.
+	/// </summary>
+	/// <param name="id"> Идентификатор. </param>
+	/// <returns> МХ или <c>null</c>, если МХ не найден. </returns>
+	StoragePlace? GetStoragePlaceById(Guid id);
 
-// 	/// <summary>
-// 	/// Помечает бочку удаленной.
-// 	/// </summary>
-// 	/// <param name="barrel"> Бочка. </param>
-// 	void Remove(Barrel barrel);
+	/// <summary>
+	/// Возвращает все МХ для данного склада.
+	/// </summary>
+	/// <param name="productionStorageId"> Идентификатор склада. </param>
+	/// <returns> Коллекция всех МХ данного склада. </returns>
+	IReadOnlyCollection<StoragePlace> GetStoragePlacesByStorageId(Guid storageId);
 
-// 	/// <summary>
-// 	/// Обновляет бочку.
-// 	/// </summary>
-// 	/// <param name="barrel"> Бочка. </param>
-// 	void Update(Barrel barrel);
+	#endregion
 
-// 	#endregion
-// }
+	#region Aggregate
+
+	/// <summary>
+	/// Возвращает агрегат по ег идентификатору.
+	/// </summary>
+	/// <param name="id"> Идентификатор. </param>
+	/// <returns> Агрегат или <c>null</c>, если агрегат не найден. </returns>
+	Aggregate? GetAggregateById(Guid id);
+
+	/// <summary>
+	/// Возвращает все агрегаты для данного склада производства.
+	/// </summary>
+	/// <param name="productionStorageId"> Идентификатор склада производства. </param>
+	/// <returns> Коллекция всех агрегатов данного склада производства. </returns>
+	IReadOnlyCollection<StoragePlace> GetStoragePlacesByProductionStorageId(Guid productionStorageId);
+
+	#endregion
+
+	#endregion
+
+	#region Storages
+
+	/// <summary>
+	/// Возвращает все склады данного типа.
+	/// </summary>
+	/// <typeparam name="TStorage"> Тип склада. </typeparam>
+	/// <returns> Коллекция всех складов данного типа. </returns>
+	IReadOnlyCollection<TStorage> GetStorages<TStorage>()
+		where TStorage : Storage;
+
+	/// <summary>
+	/// Возвращает склад данного типа по его идентификатору.
+	/// </summary>
+	/// <typeparam name="TStorage"> Тип склада. </typeparam>
+	/// <param name="storageId"> Идентификатор склада. </param>
+	/// <returns> Склад или <c>null</c>, если не найден. </returns>
+	TStorage? GetStorageById<TStorage>(Guid storageId)
+		where TStorage : Storage;
+
+	#endregion
+}
