@@ -1,6 +1,6 @@
 using AutoMapper;
 
-namespace Accounting;
+namespace BarrelsAccounting.Accounting;
 
 public class AutoMapperConfiguration : Profile
 {

@@ -1,4 +1,4 @@
-﻿namespace Eventing;
+﻿namespace BarrelsAccounting.Eventing;
 
 public class Class1
 {

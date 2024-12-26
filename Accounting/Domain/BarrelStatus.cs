@@ -1,4 +1,4 @@
-namespace Accounting.Domain;
+namespace BarrelsAccounting.Accounting.Domain;
 
 /// <summary>
 /// Перечисление возможных статусов бочки в системе.

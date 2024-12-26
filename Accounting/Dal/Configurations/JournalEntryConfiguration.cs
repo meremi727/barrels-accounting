@@ -1,8 +1,8 @@
-using Accounting.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using BarrelsAccounting.Accounting.Domain;
 
-namespace Accounting.Dal.Configurations;
+namespace BarrelsAccounting.Accounting.Dal.Configurations;
 
 /// <summary>
 /// Конфигурация для сущности <see cref="JournalEntry"/>.

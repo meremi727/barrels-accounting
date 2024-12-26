@@ -1,4 +1,4 @@
-namespace Accounting.Domain;
+namespace BarrelsAccounting.Accounting.Domain;
 
 public class Barrel
 {
@@ -12,9 +12,9 @@ public class Barrel
     public string Id { get; } = null!;
 
     /// <summary>
-    /// Возвращает код поставщика.
+    /// Возвращает кодовое обозначение бочки.
     /// </summary>
-    public string ProviderCode { get; } = null!;
+    public string Code { get; } = null!;
 
     /// <summary>
     /// Возвращает цветовое обозначение RAL.
@@ -90,16 +90,16 @@ public class Barrel
     /// Конструктор с параметрами.
     /// </summary>
     /// <param name="id"> Уникальный идентификатор бочки. </param>
-    /// <param name="providerCode"></param>
-    /// <param name="ral"></param>
-    /// <param name="batch"></param>
-    /// <param name="number"></param>
-    /// <param name="nettoWeight"></param>
-    /// <param name="bruttoWeight"></param>
-    /// <param name="productionDate"></param>
-    /// <param name="storageObjectId"></param>
+    /// <param name="code"> Кодовое обозначение бочки. </param>
+    /// <param name="ral"> Цветовое обозначение RAL. </param>
+    /// <param name="batch"> Номер партии поставщика. </param>
+    /// <param name="number"> Номер бочки из партии. </param>
+    /// <param name="nettoWeight"> Вес НЕТТО. </param>
+    /// <param name="bruttoWeight"> Вес БРУТТО. </param>
+    /// <param name="productionDate"> Дата производства. </param>
+    /// <param name="storageObjectId"> Идентификатор объекта хранилища, в котором находится бочка. </param>
     public Barrel(string id,
-                  string providerCode,
+                  string code,
                   string ral,
                   string batch,
                   string number,
@@ -109,7 +109,7 @@ public class Barrel
                   Guid? storageObjectId)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(id, nameof(id));
-        ArgumentException.ThrowIfNullOrWhiteSpace(providerCode, nameof(providerCode));
+        ArgumentException.ThrowIfNullOrWhiteSpace(code, nameof(code));
         ArgumentException.ThrowIfNullOrWhiteSpace(ral, nameof(ral));
         ArgumentException.ThrowIfNullOrWhiteSpace(batch, nameof(batch));
         ArgumentException.ThrowIfNullOrWhiteSpace(number, nameof(number));
@@ -122,7 +122,7 @@ public class Barrel
         ArgumentOutOfRangeException.ThrowIfLessThan(productionDate, DateOnly.FromDateTime(DateTime.Now - TimeSpan.FromDays(3652)), nameof(productionDate));
 
         Id = id;
-        ProviderCode = providerCode;
+        Code = code;
         Ral = ral;
         Batch = batch;
         Number = number;

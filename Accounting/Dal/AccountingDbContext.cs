@@ -1,12 +1,13 @@
-using Accounting.Domain;
+using BarrelsAccounting.Accounting.Dal.Configurations;
+using BarrelsAccounting.Accounting.Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace Accounting.Dal;
+namespace BarrelsAccounting.Accounting.Dal;
 
 /// <summary>
 /// Класс контекста БД сервиса учета.
 /// </summary>
-/// <param name="options"></param>
+/// <param name="options"> Параметры подключения.  </param>
 public class AccountingDbContext(DbContextOptions<AccountingDbContext> options) : DbContext(options)
 {
     #region Properties
@@ -53,8 +54,7 @@ public class AccountingDbContext(DbContextOptions<AccountingDbContext> options) 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        // modelBuilder.ApplyConfiguration()
-        // Apply configurations
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(AggregateConfiguration).Assembly);
     }
 
     #endregion

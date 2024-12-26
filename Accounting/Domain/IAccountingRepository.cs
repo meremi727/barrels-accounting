@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace Accounting.Domain;
+namespace BarrelsAccounting.Accounting.Domain;
 
 /// <summary>
 /// Интерфейс репозитория сервиса учета ЛКМ.

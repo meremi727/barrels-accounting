@@ -1,24 +1,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using BarrelsAccounting.Accounting.Domain;
 
-namespace BarrelsAccounting.Accounting.Dal.Configurations;
+namespace BarrelsAccounting.Accounting.Dal.ReadOnlyModel.Configuration;
 
 /// <summary>
-/// Конфигурация для сущности <see cref="Barrel"/>.
+/// Конфигурация для сущности <see cref="BarrelModel"/>.
 /// </summary>
-public class BarrelConfiguration : IEntityTypeConfiguration<Barrel>
+public class BarrelModelConfiguration : IEntityTypeConfiguration<BarrelModel>
 {
     /// <inheritdoc/>
-    public void Configure(EntityTypeBuilder<Barrel> builder)
+    public void Configure(EntityTypeBuilder<BarrelModel> builder)
     {
         builder.ToTable("Barrel");
-
-        // PRIMARY KEY
-        builder.HasKey(b => b.Id);
-
-        // INDEXES
-        #warning Не определены индексы для сущности Barrel
 
         builder.Property(b => b.Id)
                .HasColumnName("Id")
@@ -72,5 +65,13 @@ public class BarrelConfiguration : IEntityTypeConfiguration<Barrel>
         builder.Property(b => b.StorageObjectId)
                .HasColumnName("StorageObjectId")
                .IsRequired(false);
+
+        builder.OwnsOne(b => b.CodeAttributes);
+		builder.Navigation(b => b.CodeAttributes)
+			   .AutoInclude();
+
+        builder.OwnsOne(b => b.BatchAttributes);
+		builder.Navigation(b => b.BatchAttributes)
+			   .AutoInclude();
     }
 }

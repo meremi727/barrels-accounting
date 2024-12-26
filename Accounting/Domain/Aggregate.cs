@@ -1,4 +1,4 @@
-namespace Accounting.Domain;
+namespace BarrelsAccounting.Accounting.Domain;
 
 /// <summary>
 /// Агрегат. Устройство на производстве, в котором смешиваются краски. 

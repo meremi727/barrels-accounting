@@ -1,4 +1,4 @@
-namespace Accounting.Domain;
+namespace BarrelsAccounting.Accounting.Domain;
 
 /// <summary>
 /// Место хранения

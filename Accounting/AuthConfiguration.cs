@@ -2,7 +2,7 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
-namespace Accounting;
+namespace BarrelsAccounting.Accounting;
 
 /// <summary>
 /// Применяет настройки аутентификации через keycloak из конфигурационного файла.
