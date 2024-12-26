@@ -22,6 +22,7 @@ public class JournalEntry
 
         ArgumentException.ThrowIfNullOrWhiteSpace(userName, nameof(userName));
         ArgumentException.ThrowIfNullOrWhiteSpace(operationPayload, nameof(operationPayload));
+        ArgumentException.ThrowIfNullOrWhiteSpace(operationType, nameof(operationType));
  
         Id = Guid.NewGuid();
         DateTime = operationDateTime;
@@ -40,6 +41,12 @@ public class JournalEntry
     #endregion
 
     #region Properties
+
+    /// <summary>
+    /// Возвращает уникальный идентификатор события журнала.
+    /// </summary>
+    public Guid Id { get; init; }
+
     /// <summary>
     /// Возвращает уникальный идентификатор бочки.
     /// </summary>
@@ -49,11 +56,6 @@ public class JournalEntry
     /// Возвращает дату и время возникновения события.
     /// </summary>
     public DateTime DateTime { get; init; }
-
-    /// <summary>
-    /// Возвращает уникальный идентификатор события журнала.
-    /// </summary>
-    public Guid Id { get; init; }
 
     /// <summary>
     /// Возвращает данные по операции.

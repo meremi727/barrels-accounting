@@ -23,5 +23,5 @@ public abstract class Storage
     /// <summary>
     /// Возвращает идентификатор МХ установленного по-умолчанию.
     /// </summary>
-    public Guid? StoragePlaceId { get; set; }
+    public Guid? DefaultStoragePlaceId { get; set; }
 }
