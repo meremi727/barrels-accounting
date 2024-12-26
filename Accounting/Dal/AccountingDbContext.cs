@@ -7,7 +7,7 @@ namespace BarrelsAccounting.Accounting.Dal;
 /// <summary>
 /// Класс контекста БД сервиса учета.
 /// </summary>
-/// <param name="options"> Параметры подключения.  </param>
+/// <param name="options"> Параметры подключения. </param>
 public class AccountingDbContext(DbContextOptions<AccountingDbContext> options) : DbContext(options)
 {
     #region Properties
@@ -54,7 +54,8 @@ public class AccountingDbContext(DbContextOptions<AccountingDbContext> options) 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(AggregateConfiguration).Assembly);
+        var type = typeof(AggregateConfiguration);
+		modelBuilder.ApplyConfigurationsFromAssembly(type.Assembly, t => t.Namespace == type.Namespace);
     }
 
     #endregion

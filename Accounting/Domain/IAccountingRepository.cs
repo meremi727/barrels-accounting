@@ -22,12 +22,6 @@ public interface IAccountingRepository
 	void UpdateBarrel(Barrel barrel);
 
 	/// <summary>
-	/// Помечает указанную бочку удаленной.
-	/// </summary>
-	/// <param name="barrel"> Бочка. </param>
-	void RemoveBarrel(Barrel barrel);
-
-	/// <summary>
 	/// Возвращает бочки по указанным идентификаторам, которые не были помечены удаленными.
 	/// </summary>
 	/// <param name="ids"> Коллекция идентификаторов. </param>
@@ -54,41 +48,14 @@ public interface IAccountingRepository
 	TStorageObject? GetStorageObjectById<TStorageObject>(Guid storageObjectId)
 		where TStorageObject : StorageObject;
 
-	#region StoragePlace
-
 	/// <summary>
-	/// Возвращает МХ по его идентификатору.
+	/// Возвращает все обьекты хранилища данного типа по идентификатору склада.
 	/// </summary>
-	/// <param name="id"> Идентификатор. </param>
-	/// <returns> МХ или <c>null</c>, если МХ не найден. </returns>
-	StoragePlace? GetStoragePlaceById(Guid id);
-
-	/// <summary>
-	/// Возвращает все МХ для данного склада.
-	/// </summary>
-	/// <param name="productionStorageId"> Идентификатор склада. </param>
-	/// <returns> Коллекция всех МХ данного склада. </returns>
-	IReadOnlyCollection<StoragePlace> GetStoragePlacesByStorageId(Guid storageId);
-
-	#endregion
-
-	#region Aggregate
-
-	/// <summary>
-	/// Возвращает агрегат по ег идентификатору.
-	/// </summary>
-	/// <param name="id"> Идентификатор. </param>
-	/// <returns> Агрегат или <c>null</c>, если агрегат не найден. </returns>
-	Aggregate? GetAggregateById(Guid id);
-
-	/// <summary>
-	/// Возвращает все агрегаты для данного склада производства.
-	/// </summary>
-	/// <param name="productionStorageId"> Идентификатор склада производства. </param>
-	/// <returns> Коллекция всех агрегатов данного склада производства. </returns>
-	IReadOnlyCollection<StoragePlace> GetStoragePlacesByProductionStorageId(Guid productionStorageId);
-
-	#endregion
+	/// <typeparam name="TStorageObject"> Тип объекта хранилища. </typeparam>
+	/// <param name="storageId"> Идентификатор склада. </param>
+	/// <returns> Коллекция объектов хранилищ. </returns>
+	IReadOnlyCollection<TStorageObject> GetStorageObjectsByStorageId<TStorageObject>(Guid storageId) 
+		where TStorageObject: StorageObject;
 
 	#endregion
 
