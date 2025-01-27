@@ -1,7 +1,7 @@
 using BarrelsAccounting.Accounting.Dal;
 using Microsoft.EntityFrameworkCore;
 
-namespace Accounting.Util;
+namespace BarrelsAccounting.Accounting.Util;
 
 public static class DataBaseExtention
 {

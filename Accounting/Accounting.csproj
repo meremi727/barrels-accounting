@@ -20,7 +20,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
 
     
-    <PackageReference Include="BarrelsAccounting.Contracts" Version="1.0.1" />
+    <PackageReference Include="BarrelsAccounting.Contracts" Version="1.0.5" />
     <PackageReference Include="BarrelsAccounting.Eventing" Version="1.0.0" />
   </ItemGroup>
 

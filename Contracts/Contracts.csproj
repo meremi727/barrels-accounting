@@ -5,7 +5,7 @@
     <Nullable>enable</Nullable>
 
     <PackageId>BarrelsAccounting.Contracts</PackageId>
-    <Version>1.0.1</Version>
+    <Version>1.0.5</Version>
     <Authors>Терехов Даниил Евгеньевич</Authors>
     <Company>meremi727</Company>
   </PropertyGroup>

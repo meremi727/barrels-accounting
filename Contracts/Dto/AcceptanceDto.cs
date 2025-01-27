@@ -1,6 +1,21 @@
 namespace BarrelsAccounting.Contracts.Dto;
 
-public record AcceptanceDto(Guid storagePlaceId, IEnumerable<AcceptanceBarrelDto> barrels);
+/// <summary>
+/// Dto для принятия новой бочки.
+/// </summary>
+/// <param name="StoragePlaceId"> Идентификатор МХ, в которое принимается бочка.  </param>
+/// <param name="Barrel"> Бочка. </param>
+public record AcceptanceDto(Guid StoragePlaceId, AcceptanceBarrelDto Barrel);
 
-
-public record AcceptanceBarrelDto(string id, string code, string ral, string batch, string number, double bruttoWeight, double nettoWeight, DateOnly productionDate);
+/// <summary>
+/// Dto бочки для принятия.
+/// </summary>
+/// <param name="Id"> Идентификатор. </param>
+/// <param name="Code"> Код. </param>
+/// <param name="Ral"> Цвет. </param>
+/// <param name="Batch"> Партия. </param>
+/// <param name="Number"> Номер в партии. </param>
+/// <param name="BruttoWeight"> Вес БРУТТО. </param>
+/// <param name="NettoWeight"> Вес НЕТТО. </param>
+/// <param name="ProductionDate"> Дата производства. </param>
+public record AcceptanceBarrelDto(string Id, string Code, string Ral, string Batch, string Number, double BruttoWeight, double NettoWeight, DateOnly ProductionDate);

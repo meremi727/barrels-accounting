@@ -1,13 +1,13 @@
-using Accounting.Util;
-using BarrelsAccounting.Accounting;
 using Microsoft.EntityFrameworkCore;
+using BarrelsAccounting.Accounting;
+using BarrelsAccounting.Accounting.Util;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Postgres");
 
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwagger();
 builder.Services.AddControllers();
 
 builder.AddKeycloak();
@@ -23,13 +23,15 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRouting();
+app.MapControllers();
+
 app.UseAuthentication();
 app.UseAuthorization();
-app.MapControllers();
-app.UseAuthentication();
+
 app.UseCors(
     x => x.AllowAnyMethod()
           .AllowAnyHeader()
           .SetIsOriginAllowed(_ => true)
           .AllowCredentials());
+
 app.Run();
