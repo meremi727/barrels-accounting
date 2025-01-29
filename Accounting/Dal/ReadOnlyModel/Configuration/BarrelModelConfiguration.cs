@@ -21,7 +21,7 @@ public class BarrelModelConfiguration : IEntityTypeConfiguration<BarrelModel>
                      .IsRequired();
 
               builder.Property(b => b.Code)
-                     .HasColumnName("ProviderCode")
+                     .HasColumnName("Code")
                      .IsRequired();
 
               builder.Property(b => b.Ral)

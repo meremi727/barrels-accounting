@@ -18,7 +18,8 @@ public class StorageObjectConfiguration : IEntityTypeConfiguration<StorageObject
         builder.HasKey(so => so.Id);
 
         // INDEXES
-        #warning Не определены индексы для сущности StorageObject
+        builder.HasIndex(so => so.Id);
+        builder.HasIndex(so => so.StorageId);
 
         builder.Property(so => so.Id)
                .HasColumnName("Id")

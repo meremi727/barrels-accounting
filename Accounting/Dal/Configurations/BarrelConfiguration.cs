@@ -18,14 +18,20 @@ public class BarrelConfiguration : IEntityTypeConfiguration<Barrel>
         builder.HasKey(b => b.Id);
 
         // INDEXES
-        #warning Не определены индексы для сущности Barrel
+        builder.HasIndex(b => b.Id);
+        builder.HasIndex(b => b.Code);
+        builder.HasIndex(b => b.Batch);
+        builder.HasIndex(b => b.Number);
+        builder.HasIndex(b => b.Status);
+        builder.HasIndex(b => b.StorageObjectId);
+
 
         builder.Property(b => b.Id)
                .HasColumnName("Id")
                .IsRequired();
 
         builder.Property(b => b.Code)
-               .HasColumnName("ProviderCode")
+               .HasColumnName("Code")
                .IsRequired();
 
         builder.Property(b => b.Ral)

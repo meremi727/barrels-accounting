@@ -18,7 +18,10 @@ public class JournalEntryConfiguration : IEntityTypeConfiguration<JournalEntry>
         builder.HasKey(j => j.Id);
 
         // INDEXES
-        #warning Не определены индексы для сущности JournalEntry
+        builder.HasIndex(j => j.Id);
+        builder.HasIndex(j => j.DateTime);
+        builder.HasIndex(j => j.OperationType);
+        builder.HasIndex(j => j.StorageObjectId);
 
         builder.Property(j => j.Id)
                .HasColumnName("Id")
