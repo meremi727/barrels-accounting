@@ -16,7 +16,7 @@ namespace Accounting.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
-                    ProviderCode = table.Column<string>(type: "text", nullable: false),
+                    Code = table.Column<string>(type: "text", nullable: false),
                     Ral = table.Column<string>(type: "text", nullable: false),
                     Batch = table.Column<string>(type: "text", nullable: false),
                     Number = table.Column<string>(type: "text", nullable: false),
@@ -32,7 +32,7 @@ namespace Accounting.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Barrel", x => x.Id);
-                    table.UniqueConstraint("AK_Barrel_ProviderCode", x => x.ProviderCode);
+                    table.UniqueConstraint("AK_Barrel_Code", x => x.Code);
                 });
 
             migrationBuilder.CreateTable(
@@ -93,7 +93,7 @@ namespace Accounting.Migrations
                         name: "FK_Batch_Barrel_BatchNumber",
                         column: x => x.BatchNumber,
                         principalTable: "Barrel",
-                        principalColumn: "ProviderCode",
+                        principalColumn: "Code",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -114,7 +114,7 @@ namespace Accounting.Migrations
                         name: "FK_Code_Barrel_MaterialCode",
                         column: x => x.MaterialCode,
                         principalTable: "Barrel",
-                        principalColumn: "ProviderCode",
+                        principalColumn: "Code",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -141,6 +141,36 @@ namespace Accounting.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Barrel_Batch",
+                table: "Barrel",
+                column: "Batch");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Barrel_Code",
+                table: "Barrel",
+                column: "Code");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Barrel_Id",
+                table: "Barrel",
+                column: "Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Barrel_Number",
+                table: "Barrel",
+                column: "Number");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Barrel_Status",
+                table: "Barrel",
+                column: "Status");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Barrel_StorageObjectId",
+                table: "Barrel",
+                column: "StorageObjectId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Batch_BatchNumber",
                 table: "Batch",
                 column: "BatchNumber");
@@ -151,9 +181,39 @@ namespace Accounting.Migrations
                 column: "MaterialCode");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Journal_DateTime",
+                table: "Journal",
+                column: "DateTime");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Journal_Id",
+                table: "Journal",
+                column: "Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Journal_OperationType",
+                table: "Journal",
+                column: "OperationType");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Journal_StorageObjectId",
+                table: "Journal",
+                column: "StorageObjectId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Ral_Code",
                 table: "Ral",
                 column: "Code");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Storage_Id",
+                table: "Storage",
+                column: "Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StorageObject_Id",
+                table: "StorageObject",
+                column: "Id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StorageObject_StorageId",

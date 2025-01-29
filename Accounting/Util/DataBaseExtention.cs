@@ -10,11 +10,12 @@ public static class DataBaseExtention
         ArgumentException.ThrowIfNullOrWhiteSpace(nameof(connectionString));
 
         services.AddDbContext<AccountingDbContext>(CreateOprions);
+        services.AddDbContext<ReferencesDbContext>(CreateOprions);
+        services.AddDbContext<SearchDbContext>(CreateOprions);
 
         void CreateOprions(DbContextOptionsBuilder builder)
         {
             builder.UseNpgsql(connectionString);
-
             #warning Добавить логи в дебаге
         }
     }

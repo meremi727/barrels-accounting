@@ -8,7 +8,7 @@ namespace BarrelsAccounting.Accounting.Dal;
 /// Конекст БД для поиска бочек.
 /// </summary>
 /// <param name="options"> Параметры подключения. </param>
-public class SearchDbContext(DbContextOptions options) : DbContext(options)
+public class SearchDbContext(DbContextOptions<SearchDbContext> options) : DbContext(options)
 {
     /// <summary>
     /// Возвращает все неудаленные бочки.
@@ -20,7 +20,7 @@ public class SearchDbContext(DbContextOptions options) : DbContext(options)
     {
         base.OnModelCreating(modelBuilder);
         var type = typeof(BarrelModelConfiguration);
-		modelBuilder.ApplyConfigurationsFromAssembly(type.Assembly, t => t.Namespace == type.Namespace);
+		modelBuilder.ApplyConfigurationsFromAssembly(type.Assembly);
 		modelBuilder.Entity<BarrelModel>()
                     .HasQueryFilter(barrel => !barrel.IsDeleted);
     }

@@ -3,6 +3,7 @@ using System;
 using BarrelsAccounting.Accounting.Dal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,10 +11,12 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Accounting.Migrations
 {
-    [DbContext(typeof(AccountingDbContext))]
-    partial class AccountingDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(SearchDbContext))]
+    [Migration("20250129140928_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +24,99 @@ namespace Accounting.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("BarrelsAccounting.Accounting.Dal.ReadOnlyModel.BarrelModel", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text")
+                        .HasColumnName("Id");
+
+                    b.Property<string>("Batch")
+                        .IsRequired()
+                        .ValueGeneratedOnUpdateSometimes()
+                        .HasColumnType("text")
+                        .HasColumnName("Batch");
+
+                    b.Property<double>("BruttoWeight")
+                        .ValueGeneratedOnUpdateSometimes()
+                        .HasColumnType("double precision")
+                        .HasColumnName("BruttoWeight");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("Code");
+
+                    b.Property<DateTime>("CreatedDateTime")
+                        .ValueGeneratedOnUpdateSometimes()
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("CreatedDateTime");
+
+                    b.Property<DateTime?>("DeletedDateTime")
+                        .ValueGeneratedOnUpdateSometimes()
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("DeletedDateTime");
+
+                    b.Property<bool>("IsDrained")
+                        .ValueGeneratedOnUpdateSometimes()
+                        .HasColumnType("boolean")
+                        .HasColumnName("IsDrained");
+
+                    b.Property<double>("NettoWeight")
+                        .ValueGeneratedOnUpdateSometimes()
+                        .HasColumnType("double precision")
+                        .HasColumnName("NettoWeight");
+
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .ValueGeneratedOnUpdateSometimes()
+                        .HasColumnType("text")
+                        .HasColumnName("Number");
+
+                    b.Property<DateOnly>("ProductionDate")
+                        .ValueGeneratedOnUpdateSometimes()
+                        .HasColumnType("date")
+                        .HasColumnName("ProductionDate");
+
+                    b.Property<string>("Ral")
+                        .IsRequired()
+                        .ValueGeneratedOnUpdateSometimes()
+                        .HasColumnType("text")
+                        .HasColumnName("Ral");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .ValueGeneratedOnUpdateSometimes()
+                        .HasColumnType("text")
+                        .HasColumnName("Status");
+
+                    b.Property<Guid?>("StorageObjectId")
+                        .ValueGeneratedOnUpdateSometimes()
+                        .HasColumnType("uuid")
+                        .HasColumnName("StorageObjectId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Barrel", (string)null);
+                });
+
+            modelBuilder.Entity("BarrelsAccounting.Accounting.Dal.ReadOnlyModel.RalModel", b =>
+                {
+                    b.Property<string>("Code")
+                        .HasColumnType("text")
+                        .HasColumnName("Code");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("Description");
+
+                    b.HasKey("Code");
+
+                    b.HasIndex("Code");
+
+                    b.ToTable("Ral", (string)null);
+                });
 
             modelBuilder.Entity("BarrelsAccounting.Accounting.Domain.Barrel", b =>
                 {
@@ -30,58 +126,82 @@ namespace Accounting.Migrations
 
                     b.Property<string>("Batch")
                         .IsRequired()
+                        .ValueGeneratedOnUpdateSometimes()
                         .HasColumnType("text")
                         .HasColumnName("Batch");
 
                     b.Property<double>("BruttoWeight")
+                        .ValueGeneratedOnUpdateSometimes()
                         .HasColumnType("double precision")
                         .HasColumnName("BruttoWeight");
 
                     b.Property<string>("Code")
                         .IsRequired()
+                        .ValueGeneratedOnUpdateSometimes()
                         .HasColumnType("text")
-                        .HasColumnName("ProviderCode");
+                        .HasColumnName("Code");
 
                     b.Property<DateTime>("CreatedDateTime")
+                        .ValueGeneratedOnUpdateSometimes()
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("CreatedDateTime");
 
                     b.Property<DateTime?>("DeletedDateTime")
+                        .ValueGeneratedOnUpdateSometimes()
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("DeletedDateTime");
 
                     b.Property<bool>("IsDrained")
+                        .ValueGeneratedOnUpdateSometimes()
                         .HasColumnType("boolean")
                         .HasColumnName("IsDrained");
 
                     b.Property<double>("NettoWeight")
+                        .ValueGeneratedOnUpdateSometimes()
                         .HasColumnType("double precision")
                         .HasColumnName("NettoWeight");
 
                     b.Property<string>("Number")
                         .IsRequired()
+                        .ValueGeneratedOnUpdateSometimes()
                         .HasColumnType("text")
                         .HasColumnName("Number");
 
                     b.Property<DateOnly>("ProductionDate")
+                        .ValueGeneratedOnUpdateSometimes()
                         .HasColumnType("date")
                         .HasColumnName("ProductionDate");
 
                     b.Property<string>("Ral")
                         .IsRequired()
+                        .ValueGeneratedOnUpdateSometimes()
                         .HasColumnType("text")
                         .HasColumnName("Ral");
 
                     b.Property<string>("Status")
                         .IsRequired()
+                        .ValueGeneratedOnUpdateSometimes()
                         .HasColumnType("text")
                         .HasColumnName("Status");
 
                     b.Property<Guid?>("StorageObjectId")
+                        .ValueGeneratedOnUpdateSometimes()
                         .HasColumnType("uuid")
                         .HasColumnName("StorageObjectId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Batch");
+
+                    b.HasIndex("Code");
+
+                    b.HasIndex("Id");
+
+                    b.HasIndex("Number");
+
+                    b.HasIndex("Status");
+
+                    b.HasIndex("StorageObjectId");
 
                     b.ToTable("Barrel", (string)null);
                 });
@@ -123,6 +243,14 @@ namespace Accounting.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DateTime");
+
+                    b.HasIndex("Id");
+
+                    b.HasIndex("OperationType");
+
+                    b.HasIndex("StorageObjectId");
+
                     b.ToTable("Journal", (string)null);
                 });
 
@@ -153,6 +281,8 @@ namespace Accounting.Migrations
                         .HasColumnType("character varying(13)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Id");
 
                     b.ToTable("Storage", (string)null);
 
@@ -188,6 +318,8 @@ namespace Accounting.Migrations
                         .HasColumnType("character varying(13)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Id");
 
                     b.ToTable("StorageObject", (string)null);
 
@@ -228,6 +360,73 @@ namespace Accounting.Migrations
                     b.HasBaseType("BarrelsAccounting.Accounting.Domain.StorageObject");
 
                     b.HasDiscriminator().HasValue("StoragePlace");
+                });
+
+            modelBuilder.Entity("BarrelsAccounting.Accounting.Dal.ReadOnlyModel.BarrelModel", b =>
+                {
+                    b.HasOne("BarrelsAccounting.Accounting.Domain.Barrel", null)
+                        .WithOne()
+                        .HasForeignKey("BarrelsAccounting.Accounting.Dal.ReadOnlyModel.BarrelModel", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsOne("BarrelsAccounting.Accounting.Dal.ReadOnlyModel.BatchModel", "BatchAttributes", b1 =>
+                        {
+                            b1.Property<string>("BatchNumber")
+                                .HasColumnType("text")
+                                .HasColumnName("BatchNumber");
+
+                            b1.Property<string>("AttestationStatus")
+                                .HasColumnType("text")
+                                .HasColumnName("AttestationStatus");
+
+                            b1.HasKey("BatchNumber");
+
+                            b1.HasIndex("BatchNumber");
+
+                            b1.ToTable("Batch", (string)null);
+
+                            b1.WithOwner()
+                                .HasForeignKey("BatchNumber")
+                                .HasPrincipalKey("Code");
+                        });
+
+                    b.OwnsOne("BarrelsAccounting.Accounting.Dal.ReadOnlyModel.CodeModel", "CodeAttributes", b1 =>
+                        {
+                            b1.Property<string>("MaterialCode")
+                                .HasColumnType("text")
+                                .HasColumnName("MaterialCode");
+
+                            b1.Property<string>("Gloss")
+                                .HasColumnType("text")
+                                .HasColumnName("Gloss");
+
+                            b1.Property<string>("Material")
+                                .HasColumnType("text")
+                                .HasColumnName("Material");
+
+                            b1.Property<string>("MaterialType")
+                                .HasColumnType("text")
+                                .HasColumnName("MaterialType");
+
+                            b1.Property<string>("ProviderName")
+                                .HasColumnType("text")
+                                .HasColumnName("ProviderName");
+
+                            b1.HasKey("MaterialCode");
+
+                            b1.HasIndex("MaterialCode");
+
+                            b1.ToTable("Code", (string)null);
+
+                            b1.WithOwner()
+                                .HasForeignKey("MaterialCode")
+                                .HasPrincipalKey("Code");
+                        });
+
+                    b.Navigation("BatchAttributes");
+
+                    b.Navigation("CodeAttributes");
                 });
 
             modelBuilder.Entity("BarrelsAccounting.Accounting.Domain.Aggregate", b =>

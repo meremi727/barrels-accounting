@@ -55,8 +55,7 @@ public class AccountingDbContext(DbContextOptions<AccountingDbContext> options) 
     {
         base.OnModelCreating(modelBuilder);
         var type = typeof(AggregateConfiguration);
-		modelBuilder.ApplyConfigurationsFromAssembly(type.Assembly, t => t.Namespace == type.Namespace);
+		modelBuilder.ApplyConfigurationsFromAssembly(type.Assembly);
     }
-
     #endregion
 }

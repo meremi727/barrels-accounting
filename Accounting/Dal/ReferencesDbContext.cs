@@ -7,7 +7,7 @@ namespace BarrelsAccounting.Accounting.Dal;
 /// Контекст БД для справочной информации.
 /// </summary>
 /// <param name="options"> Параметры подключения. </param>
-public class ReferencesDbContext(DbContextOptions options) : DbContext(options)
+public class ReferencesDbContext(DbContextOptions<ReferencesDbContext> options) : DbContext(options)
 {
     /// <summary>
     /// Возвращает все цветовые обозначения.
@@ -29,6 +29,6 @@ public class ReferencesDbContext(DbContextOptions options) : DbContext(options)
     {
         base.OnModelCreating(modelBuilder);
         var type = typeof(RalModel);
-		modelBuilder.ApplyConfigurationsFromAssembly(type.Assembly, t => t.Namespace == type.Namespace);
+		modelBuilder.ApplyConfigurationsFromAssembly(type.Assembly);
     }
 }

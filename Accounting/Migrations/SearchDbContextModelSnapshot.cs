@@ -3,7 +3,6 @@ using System;
 using BarrelsAccounting.Accounting.Dal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,12 +10,10 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Accounting.Migrations
 {
-    [DbContext(typeof(AccountingDbContext))]
-    [Migration("20241226200402_InitialCreate")]
-    partial class InitialCreate
+    [DbContext(typeof(SearchDbContext))]
+    partial class SearchDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,7 +42,7 @@ namespace Accounting.Migrations
                     b.Property<string>("Code")
                         .IsRequired()
                         .HasColumnType("text")
-                        .HasColumnName("ProviderCode");
+                        .HasColumnName("Code");
 
                     b.Property<DateTime>("CreatedDateTime")
                         .ValueGeneratedOnUpdateSometimes()
@@ -139,7 +136,7 @@ namespace Accounting.Migrations
                         .IsRequired()
                         .ValueGeneratedOnUpdateSometimes()
                         .HasColumnType("text")
-                        .HasColumnName("ProviderCode");
+                        .HasColumnName("Code");
 
                     b.Property<DateTime>("CreatedDateTime")
                         .ValueGeneratedOnUpdateSometimes()
@@ -191,6 +188,18 @@ namespace Accounting.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Batch");
+
+                    b.HasIndex("Code");
+
+                    b.HasIndex("Id");
+
+                    b.HasIndex("Number");
+
+                    b.HasIndex("Status");
+
+                    b.HasIndex("StorageObjectId");
+
                     b.ToTable("Barrel", (string)null);
                 });
 
@@ -231,6 +240,14 @@ namespace Accounting.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DateTime");
+
+                    b.HasIndex("Id");
+
+                    b.HasIndex("OperationType");
+
+                    b.HasIndex("StorageObjectId");
+
                     b.ToTable("Journal", (string)null);
                 });
 
@@ -261,6 +278,8 @@ namespace Accounting.Migrations
                         .HasColumnType("character varying(13)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Id");
 
                     b.ToTable("Storage", (string)null);
 
@@ -296,6 +315,8 @@ namespace Accounting.Migrations
                         .HasColumnType("character varying(13)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Id");
 
                     b.ToTable("StorageObject", (string)null);
 
